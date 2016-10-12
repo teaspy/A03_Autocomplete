@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public class Term implements Comparable<Term>{
-	private String query;
-	private double weight;
+	private final String QUERY;
+	private final double WEIGHT;
 	
 	public static void main(String[] args) {
 		Term t1 = new Term("hello world!", 500);
@@ -31,8 +31,8 @@ public class Term implements Comparable<Term>{
     public Term(String query, double weight){
     	if(query == null) throw new NullPointerException();
     	if(weight < 0) throw new IllegalArgumentException();
-    	this.query = query;
-    	this.weight = weight;
+    	this.QUERY = query;
+    	this.WEIGHT = weight;
     }
 
     // Compare the terms in descending order by weight.
@@ -41,7 +41,7 @@ public class Term implements Comparable<Term>{
     	class ByReverseWeightOrder implements Comparator<Term>{
     		@Override
     		public int compare(Term o1, Term o2) {
-    			return (int)(o2.weight - o1.weight);
+    			return (int)(o2.WEIGHT - o1.WEIGHT);
     		}
     	}
     	
@@ -55,8 +55,8 @@ public class Term implements Comparable<Term>{
     	class ByPrefixOrder implements Comparator<Term>{
 			@Override
 			public int compare(Term o1, Term o2) {
-				String comparedString1 = o1.query.substring(0, r);
-				String comparedString2 = o2.query.substring(0, r);
+				String comparedString1 = o1.QUERY.substring(0, r);
+				String comparedString2 = o2.QUERY.substring(0, r);
 				return comparedString1.compareTo(comparedString2);
 			}  
     	}
@@ -67,13 +67,13 @@ public class Term implements Comparable<Term>{
 	// Compare the terms in lexicographic order by query.
 	@Override
 	public int compareTo(Term that) {
-		return (query.compareTo(that.query));
+		return (QUERY.compareTo(that.QUERY));
 	}
 
     // Return a string representation of the term in the following format:
     // the weight, followed by a tab, followed by the query.
 	@Override
     public String toString(){
-		return weight + "\t" + query;   	
+		return WEIGHT + "\t" + QUERY;   	
     }
 }
