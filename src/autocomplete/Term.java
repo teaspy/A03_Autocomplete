@@ -52,11 +52,21 @@ public class Term implements Comparable<Term>{
     public static Comparator<Term> byPrefixOrder(int r){
     	if(r < 0) throw new IllegalArgumentException();
     	
+    	
     	class ByPrefixOrder implements Comparator<Term>{
 			@Override
 			public int compare(Term o1, Term o2) {
-				String comparedString1 = o1.QUERY.substring(0, r);
-				String comparedString2 = o2.QUERY.substring(0, r);
+				int substringIndex = r;
+				//This was to prevent the length from being too long
+				if(r >= o1.QUERY.length() || r >= o2.QUERY.length()){
+					if (o1.QUERY.length() > o2.QUERY.length()){
+						substringIndex = o2.QUERY.length();
+					} else {
+						substringIndex = o1.QUERY.length();
+					}
+				}
+				String comparedString1 = o1.QUERY.substring(0, substringIndex);
+				String comparedString2 = o2.QUERY.substring(0, substringIndex);
 				return comparedString1.compareTo(comparedString2);
 			}  
     	}
