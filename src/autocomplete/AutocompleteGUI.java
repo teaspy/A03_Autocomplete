@@ -604,7 +604,7 @@ public class AutocompleteGUI extends JFrame {
 
                         // create the table HTML 
                         results[i] = "<html><table width=\"" 
-                                + searchText.getPreferredSize().width + "\">"
+                                + (searchText.getWidth() - 10) + "\">"//size proportional to searchText
                                 + "<tr><td align=left>" 
                                 + query.substring(0, textLen + 1)
                                 + "<b>" + query.substring(textLen + 1) + "</b>";
