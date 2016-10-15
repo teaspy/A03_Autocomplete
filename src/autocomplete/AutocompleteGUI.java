@@ -44,7 +44,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URLEncoder;
-
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Container;
@@ -151,7 +151,8 @@ public class AutocompleteGUI extends JFrame {
                                 GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 
                         GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                .addComponent(ap, 0, GroupLayout.DEFAULT_SIZE, DEF_WIDTH)
+                //I set the width to 2500 because that allowed the panel to increase with the size of the window
+                .addComponent(ap, 0, GroupLayout.DEFAULT_SIZE, 2500)
                 .addComponent(searchButton, GroupLayout.PREFERRED_SIZE, 
                         GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
         );
@@ -256,7 +257,7 @@ public class AutocompleteGUI extends JFrame {
             // create the search text, and allow the user to interact with it
             searchText = new JTextField(DEF_COLUMNS);
             searchText.setMaximumSize(new Dimension(
-                    searchText.getMaximumSize().width, 
+                    Integer.MAX_VALUE, 
                     searchText.getPreferredSize().height));
             searchText.getInputMap().put(
                     KeyStroke.getKeyStroke("UP"),   "none");
@@ -274,10 +275,10 @@ public class AutocompleteGUI extends JFrame {
             
             // create the search text box
             JPanel searchTextPanel = new JPanel();
-            searchTextPanel.add(searchText);
+            searchTextPanel.setLayout(new BorderLayout());
+            searchTextPanel.add(searchText, BorderLayout.CENTER);
             searchTextPanel.setBorder(
                     BorderFactory.createEmptyBorder(0, 0, 0, 0));
-            searchTextPanel.setLayout(new GridLayout(1, 1));
             
             // create the drop-down menu items
             int fontsize = 13;
@@ -375,15 +376,14 @@ public class AutocompleteGUI extends JFrame {
 
             scrollPane = new JScrollPane(suggestions);
             scrollPane.setVisible(false);
-            int prefBarWidth = scrollPane.getVerticalScrollBar().getPreferredSize().width;
             suggestions.setPreferredSize(new Dimension(searchText.getPreferredSize().width, 0));
             scrollPane.setAutoscrolls(true);
             scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
             scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
 
             // resize widths and heights of all components to fit nicely
-            int preferredWidth      = searchText.getPreferredSize().width + 2*prefBarWidth;
-            int maxWidth            = searchText.getMaximumSize().width + 2*prefBarWidth;
+            int preferredWidth      = Integer.MAX_VALUE;
+            int maxWidth            = Integer.MAX_VALUE;
             int searchBarHeight     = searchText.getPreferredSize().height;
             int suggestionHeight    = suggestions.getFixedCellHeight();
             int maxSuggestionHeight = DEF_HEIGHT*2;

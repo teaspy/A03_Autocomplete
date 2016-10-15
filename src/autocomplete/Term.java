@@ -21,7 +21,7 @@ public class Term implements Comparable<Term>{
 		Term t11 = new Term("hello loving nobody but you", 1870);
 		Term t12 = new Term("for all my life", 732);
 		Term[] terms = {t1, t2, t3, t4, t5, t6, t7, t8, t9, t10, t11, t12};
-		Arrays.sort(terms, Term.byReverseWeightOrder());
+		Arrays.sort(terms, Term.byPrefixOrder(10));
 		for(Term t : terms){
 			System.out.println(t);
 		}
